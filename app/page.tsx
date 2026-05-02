@@ -1,10 +1,13 @@
 import Hero from "@/components/Hero";
+import BirthDateWidget from "@/components/BirthDateWidget";
 import Pain from "@/components/Pain";
 import About from "@/components/About";
 import Method from "@/components/Method";
 import LeadMagnet from "@/components/LeadMagnet";
 import WhoFor from "@/components/WhoFor";
 import Program from "@/components/Program";
+import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
 import SocialProof from "@/components/SocialProof";
 import Footer from "@/components/Footer";
 
@@ -12,12 +15,15 @@ export default function HomePage() {
   return (
     <main className="relative overflow-hidden">
       <Hero />
+      <BirthDateWidget />
       <Pain />
       <About />
       <Method />
       <LeadMagnet />
       <WhoFor />
       <Program />
+      <Testimonials />
+      <FAQ />
       <SocialProof />
       <Footer />
     </main>

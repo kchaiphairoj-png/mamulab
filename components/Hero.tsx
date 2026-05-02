@@ -38,10 +38,10 @@ export default function Hero() {
 
             <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
               <a
-                href="#lead-magnet"
+                href="#insight"
                 className="group inline-flex items-center justify-center rounded-full bg-gold-gradient px-7 py-3.5 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.02] hover:shadow-[0_0_50px_rgba(245,226,125,0.5)]"
               >
-                ขอรับเช็กลิสต์มูหน้าร้านฟรี
+                ลองฟรี · ใส่วันเกิดดูจังหวะการขายของคุณ
                 <span className="ml-2 transition group-hover:translate-x-1">→</span>
               </a>
               <a
@@ -52,9 +52,10 @@ export default function Hero() {
               </a>
             </div>
 
-            <p className="text-xs text-white/50 max-w-md leading-relaxed">
-              สำหรับแม่ค้าออนไลน์และเจ้าของกิจการที่ต้องการเพิ่มยอดขายอย่างมีระบบ
-              ไม่ใช่มูมั่ว ๆ
+            <p className="text-xs text-white/55 max-w-md leading-relaxed">
+              สำหรับแม่ค้าออนไลน์ที่มียอดอยู่แล้ว{" "}
+              <span className="text-gold-light">30k–300k บาท/เดือน</span> และอยาก
+              scale ต่ออย่างมีระบบ — ใช้เวลา 30 วินาทีดูคำแนะนำของวันนี้
             </p>
           </div>
 
