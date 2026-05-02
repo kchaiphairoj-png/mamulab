@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #06071a;
+  --fg-base: #f5f3ff;
+}
+
+html,
+body {
+  background: var(--bg-base);
+  color: var(--fg-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(
+    135deg,
+    #f5e27d 0%,
+    #c9a84c 40%,
+    #7d5a00 60%,
+    #c9a84c 80%,
+    #f5e27d 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.section-divider {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 168, 76, 0.5),
+    transparent
+  );
+  height: 1px;
+  width: 100%;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite;
+}
