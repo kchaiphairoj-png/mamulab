@@ -60,9 +60,21 @@ export default function LeadForm() {
         <p className="font-display text-2xl text-gold-gradient">
           ขอบคุณค่ะ ✨
         </p>
-        <p className="mt-3 text-white/85">
-          เช็กลิสต์ของคุณกำลังเดินทางไปที่อีเมล กรุณาตรวจสอบกล่องจดหมาย
-          (และโฟลเดอร์ Promotions / Spam ด้วยนะคะ)
+        <p className="mt-3 text-white/85 leading-relaxed">
+          เช็กลิสต์ <strong>5 จุดมูหน้าร้านออนไลน์</strong> พร้อมแล้ว
+          กดปุ่มด้านล่างเพื่อเปิดเช็กลิสต์ได้เลย
+        </p>
+        <a
+          href="/checklist"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex items-center justify-center rounded-full bg-gold-gradient px-7 py-3.5 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.02]"
+        >
+          เปิดเช็กลิสต์ของคุณ
+          <span className="ml-2">→</span>
+        </a>
+        <p className="mt-4 text-xs text-white/55">
+          เปิดในหน้าใหม่ — สามารถบันทึกเป็น PDF ได้ในหน้านั้น
         </p>
       </div>
     );
