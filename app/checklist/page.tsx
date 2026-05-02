@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PrintButton from "@/components/PrintButton";
 
 export const metadata = {
   title: "เช็กลิสต์มูหน้าร้านออนไลน์ | MAMULAB",
@@ -71,15 +72,7 @@ export default function ChecklistPage() {
             MAMULAB
           </Link>
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => {
-                if (typeof window !== "undefined") window.print();
-              }}
-              className="rounded-full border border-gold/40 px-5 py-2 text-sm text-gold-light transition hover:border-gold hover:bg-gold/10 print:hidden"
-              type="button"
-            >
-              บันทึกเป็น PDF
-            </button>
+            <PrintButton />
             <Link
               href="/"
               className="text-sm text-white/70 transition hover:text-gold-light"
