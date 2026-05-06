@@ -6,7 +6,10 @@ export type TrackEventName =
   | "birth_date_submitted"
   | "birth_result_shown"
   | "birth_cta_clicked"
-  | "birth_share_clicked";
+  | "birth_share_clicked"
+  | "daily_energy_viewed"
+  | "daily_tip_expanded"
+  | "daily_share_clicked";
 
 type Params = Record<string, string | number | boolean | undefined>;
 

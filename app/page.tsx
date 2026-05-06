@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import DailyEnergyCard from "@/components/DailyEnergyCard";
 import BirthDateWidget from "@/components/BirthDateWidget";
 import Pain from "@/components/Pain";
 import About from "@/components/About";
@@ -14,6 +15,7 @@ import Footer from "@/components/Footer";
 export default function HomePage() {
   return (
     <main className="relative overflow-hidden">
+      <DailyEnergyCard />
       <Hero />
       <BirthDateWidget />
       <Pain />
