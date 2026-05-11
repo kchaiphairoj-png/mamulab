@@ -66,13 +66,12 @@ export default async function BillingPage() {
           </div>
         ) : (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <button
-              type="button"
-              disabled
-              className="cursor-not-allowed rounded-full bg-gold-gradient/50 px-6 py-3 text-sm font-semibold text-midnight-deep/60"
+            <Link
+              href="/member/billing/pay"
+              className="inline-flex items-center justify-center rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.02]"
             >
-              ชำระเงิน (เร็ว ๆ นี้)
-            </button>
+              ชำระเงิน 199 บาท →
+            </Link>
             <Link
               href="/"
               className="inline-flex items-center justify-center rounded-full border border-gold/40 px-6 py-3 text-sm text-gold-light transition hover:border-gold hover:bg-gold/10"
@@ -83,7 +82,7 @@ export default async function BillingPage() {
         )}
 
         <p className="mt-4 text-xs text-white/50">
-          ระบบชำระเงิน + อัปโหลดสลิป (PromptPay) จะเปิดในเฟส 2 — ตอนนี้บัญชีของคุณพร้อมใช้งานเมื่อเปิดให้บริการ
+          โอนเข้าบัญชีธนาคารกรุงเทพ + อัปโหลดสลิป → ระบบเปิดสมาชิกอัตโนมัติภายใน 5 วินาที
         </p>
       </section>
 
