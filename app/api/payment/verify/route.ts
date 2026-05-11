@@ -1,22 +1,24 @@
 /**
  * POST /api/payment/verify
  *
- * Receives a slip image from the authenticated user. Flow:
- *  1. Validate file (type, size)
- *  2. Upload to Supabase Storage (`slips/{user_id}/...`)
- *  3. Forward image to SlipOK for automatic verification
- *  4. Assert amount + receiving account match our configured values
- *  5. On success: insert membership (active, +30 days) + payment (verified)
- *  6. On failure: insert payment (rejected) with reason, return error
+ * Receives a slip image, extracts the embedded QR code, and grants a 30-day
+ * membership if the slip has never been used before.
+ *
+ * No external service is required — we use server-side QR decoding so the
+ * customer can pay → upload → use immediately.
+ *
+ * Flow:
+ *  1. Auth check
+ *  2. Validate file (type, size)
+ *  3. Upload to Supabase Storage (audit trail)
+ *  4. Decode QR + check uniqueness against `payments.slip_ref`
+ *  5. On success: insert payment(verified) + membership(active, +30 days)
+ *  6. On failure: insert payment(rejected) with reason
  */
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { PAYMENT } from "@/lib/payment";
-import {
-  verifySlip,
-  assertMatchesExpected,
-  SlipOKError,
-} from "@/lib/slipok";
+import { extractSlipFingerprint, SlipError } from "@/lib/slipQR";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -76,10 +78,11 @@ export async function POST(req: NextRequest) {
   }
 
   const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
   const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
   const slipPath = `${user.id}/${Date.now()}.${ext}`;
 
-  // 3. Upload to Storage (we keep a copy regardless of verification outcome)
+  // 3. Upload to Storage (we keep a copy regardless of outcome)
   const { error: uploadErr } = await supabase.storage
     .from("slips")
     .upload(slipPath, file, {
@@ -94,83 +97,90 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 4. Verify with SlipOK
+  // 4. Decode QR + validate
+  let fingerprint;
   try {
-    const result = await verifySlip(arrayBuffer, file.name);
-
-    assertMatchesExpected(result, {
-      amount: PAYMENT.price,
-      receiverAccountNumber: PAYMENT.bank.accountNumber,
-    });
-
-    // 5a. Success → record payment + grant membership
-    const now = new Date();
-    const expiresAt = new Date(
-      now.getTime() + PAYMENT.durationDays * 86400000
-    );
-
-    const { error: payErr } = await supabase.from("payments").insert({
-      user_id: user.id,
-      amount: result.amount,
-      slip_url: slipPath,
-      slip_ref: result.ref,
-      trans_date: result.transTimestamp,
-      status: "verified",
-      verified_at: now.toISOString(),
-      slipok_response: result.raw as object,
-    });
-    if (payErr) {
-      // Possibly duplicate ref — still surface as duplicate to user
-      if (payErr.code === "23505") {
-        return NextResponse.json(
-          { ok: false, error: "สลิปนี้ถูกใช้ไปแล้ว" },
-          { status: 409 }
-        );
-      }
-      console.error("payment insert failed", payErr);
-      return NextResponse.json(
-        { ok: false, error: "บันทึกการชำระไม่สำเร็จ ติดต่อแอดมิน" },
-        { status: 500 }
-      );
-    }
-
-    const { error: memErr } = await supabase.from("memberships").insert({
-      user_id: user.id,
-      plan: "monthly",
-      status: "active",
-      started_at: now.toISOString(),
-      expires_at: expiresAt.toISOString(),
-    });
-    if (memErr) {
-      console.error("membership insert failed", memErr);
-      return NextResponse.json(
-        { ok: false, error: "เปิดสมาชิกไม่สำเร็จ ติดต่อแอดมิน" },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({
-      ok: true,
-      expiresAt: expiresAt.toISOString(),
-    });
+    fingerprint = await extractSlipFingerprint(buffer);
   } catch (err) {
-    // 5b. Failure → record rejected payment + return Thai error
     const message =
-      err instanceof SlipOKError ? err.message : "ตรวจสลิปไม่ผ่าน";
-
-    await supabase.from("payments").insert({
-      user_id: user.id,
-      amount: PAYMENT.price,
-      slip_url: slipPath,
-      status: "rejected",
-      rejected_reason: message,
-      slipok_response:
-        err instanceof SlipOKError ? (err.details as object) : null,
-    });
-
+      err instanceof SlipError ? err.message : "ตรวจสลิปไม่ผ่าน";
+    await recordRejected(supabase, user.id, slipPath, message);
     return NextResponse.json(
       { ok: false, error: message },
       { status: 400 }
     );
   }
+
+  // 5. Insert payment with slip_ref = hash. The unique index on slip_ref
+  //    will reject duplicates atomically.
+  const now = new Date();
+  const expiresAt = new Date(
+    now.getTime() + PAYMENT.durationDays * 86400000
+  );
+
+  const { error: payErr } = await supabase.from("payments").insert({
+    user_id: user.id,
+    amount: PAYMENT.price,
+    slip_url: slipPath,
+    slip_ref: fingerprint.hash,
+    trans_date: now.toISOString(),
+    status: "verified",
+    verified_at: now.toISOString(),
+  });
+  if (payErr) {
+    if (payErr.code === "23505") {
+      // Unique violation = slip already used
+      await recordRejected(
+        supabase,
+        user.id,
+        slipPath,
+        "สลิปนี้ถูกใช้ไปแล้ว"
+      );
+      return NextResponse.json(
+        { ok: false, error: "สลิปนี้ถูกใช้ไปแล้ว กรุณาใช้สลิปใหม่" },
+        { status: 409 }
+      );
+    }
+    console.error("payment insert failed", payErr);
+    return NextResponse.json(
+      { ok: false, error: "บันทึกการชำระไม่สำเร็จ ติดต่อแอดมิน" },
+      { status: 500 }
+    );
+  }
+
+  // 6. Grant membership
+  const { error: memErr } = await supabase.from("memberships").insert({
+    user_id: user.id,
+    plan: "monthly",
+    status: "active",
+    started_at: now.toISOString(),
+    expires_at: expiresAt.toISOString(),
+  });
+  if (memErr) {
+    console.error("membership insert failed", memErr);
+    return NextResponse.json(
+      { ok: false, error: "เปิดสมาชิกไม่สำเร็จ ติดต่อแอดมิน" },
+      { status: 500 }
+    );
+  }
+
+  return NextResponse.json({
+    ok: true,
+    expiresAt: expiresAt.toISOString(),
+  });
+}
+
+async function recordRejected(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string,
+  slipPath: string,
+  reason: string
+) {
+  await supabase.from("payments").insert({
+    user_id: userId,
+    amount: PAYMENT.price,
+    slip_url: slipPath,
+    status: "rejected",
+    rejected_reason: reason,
+  });
 }
