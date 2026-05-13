@@ -2,7 +2,7 @@
 // All values are env-driven so they can be changed in Vercel without re-deploy.
 
 export const PAYMENT = {
-  price: Number(process.env.MEMBERSHIP_PRICE ?? 199),
+  price: Number(process.env.MEMBERSHIP_PRICE ?? 599),
   durationDays: Number(process.env.MEMBERSHIP_DURATION_DAYS ?? 365),
   bank: {
     name:

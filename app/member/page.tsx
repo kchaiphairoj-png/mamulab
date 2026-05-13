@@ -64,7 +64,7 @@ export default async function MemberDashboard() {
             <div>
               <p className="text-sm text-gold-light">ยังไม่ได้เป็นสมาชิก</p>
               <p className="mt-1 font-display text-2xl text-white">
-                ปลดล็อกเนื้อหาเชิงลึก 199 บาท / ปี
+                ปลดล็อกเนื้อหาเชิงลึก 599 บาท / ปี
               </p>
               <p className="mt-1 text-sm text-white/65">
                 บทความเชิงลึก, mini courses, เครื่องมือเลขศาสตร์, และเนื้อหารายสัปดาห์
@@ -74,7 +74,7 @@ export default async function MemberDashboard() {
               href="/member/billing"
               className="inline-flex items-center justify-center rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-midnight-deep shadow-glow"
             >
-              ชำระเงิน 199 บาท →
+              ชำระเงิน 599 บาท →
             </Link>
           </div>
         )}

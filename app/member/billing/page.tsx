@@ -36,7 +36,7 @@ export default async function BillingPage() {
           แพ็กเกจสมาชิก
         </p>
         <h2 className="mt-2 font-display text-2xl text-white">
-          MAMULAB Member · 199 บาท / ปี
+          MAMULAB Member · 599 บาท / ปี
         </h2>
         <ul className="mt-5 space-y-2 text-sm text-white/80">
           {[
@@ -70,7 +70,7 @@ export default async function BillingPage() {
               href="/member/billing/pay"
               className="inline-flex items-center justify-center rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.02]"
             >
-              ชำระเงิน 199 บาท →
+              ชำระเงิน 599 บาท →
             </Link>
             <Link
               href="/"
