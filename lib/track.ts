@@ -9,7 +9,12 @@ export type TrackEventName =
   | "birth_share_clicked"
   | "daily_energy_viewed"
   | "daily_tip_expanded"
-  | "daily_share_clicked";
+  | "daily_share_clicked"
+  | "name_analyzer_submit"
+  | "name_analyzer_share_story"
+  | "name_analyzer_share_feed"
+  | "name_analyzer_retry"
+  | "name_analyzer_line_click";
 
 type Params = Record<string, string | number | boolean | undefined>;
 
