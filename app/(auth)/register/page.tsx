@@ -16,7 +16,7 @@ export default async function RegisterPage({
   return (
     <div>
       <p className="mb-2 text-xs uppercase tracking-[0.3em] text-gold/70">
-        Member · 199 บาท / เดือน
+        Member · 199 บาท / ปี
       </p>
       <h1 className="font-display text-3xl text-white md:text-4xl">
         สมัครสมาชิก

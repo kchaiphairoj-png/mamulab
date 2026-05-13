@@ -41,7 +41,7 @@ export default async function MemberDashboard() {
             <div>
               <p className="text-sm text-gold-light">สมาชิกใช้งานอยู่</p>
               <p className="mt-1 font-display text-2xl text-white">
-                แพ็กเกจ {status.plan === "monthly" ? "รายเดือน" : status.plan}
+                แพ็กเกจ {status.plan === "monthly" ? "รายปี" : status.plan}
               </p>
               <p className="mt-1 text-sm text-white/65">
                 ใช้งานได้อีก {status.daysLeft} วัน · หมดอายุ{" "}
@@ -64,7 +64,7 @@ export default async function MemberDashboard() {
             <div>
               <p className="text-sm text-gold-light">ยังไม่ได้เป็นสมาชิก</p>
               <p className="mt-1 font-display text-2xl text-white">
-                ปลดล็อกเนื้อหาเชิงลึก 199 บาท / เดือน
+                ปลดล็อกเนื้อหาเชิงลึก 199 บาท / ปี
               </p>
               <p className="mt-1 text-sm text-white/65">
                 บทความเชิงลึก, mini courses, เครื่องมือเลขศาสตร์, และเนื้อหารายสัปดาห์

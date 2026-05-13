@@ -36,7 +36,7 @@ export default async function BillingPage() {
           แพ็กเกจสมาชิก
         </p>
         <h2 className="mt-2 font-display text-2xl text-white">
-          MAMULAB Member · 199 บาท / เดือน
+          MAMULAB Member · 199 บาท / ปี
         </h2>
         <ul className="mt-5 space-y-2 text-sm text-white/80">
           {[

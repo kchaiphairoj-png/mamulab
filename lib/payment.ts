@@ -3,7 +3,7 @@
 
 export const PAYMENT = {
   price: Number(process.env.MEMBERSHIP_PRICE ?? 199),
-  durationDays: Number(process.env.MEMBERSHIP_DURATION_DAYS ?? 30),
+  durationDays: Number(process.env.MEMBERSHIP_DURATION_DAYS ?? 365),
   bank: {
     name:
       process.env.NEXT_PUBLIC_PAYMENT_BANK_NAME ?? "ธนาคารกรุงเทพ",
