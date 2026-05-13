@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import DailyEnergyCard from "@/components/DailyEnergyCard";
 import BirthDateWidget from "@/components/BirthDateWidget";
+import NameAnalyzer from "@/components/NameAnalyzer";
 import Pain from "@/components/Pain";
 import About from "@/components/About";
 import Method from "@/components/Method";
@@ -18,6 +19,7 @@ export default function HomePage() {
       <DailyEnergyCard />
       <Hero />
       <BirthDateWidget />
+      <NameAnalyzer />
       <Pain />
       <About />
       <Method />

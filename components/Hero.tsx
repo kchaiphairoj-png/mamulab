@@ -36,17 +36,23 @@ export default function Hero() {
               to turn belief into predictable sales growth.
             </p>
 
-            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center">
               <a
-                href="#insight"
+                href="#name-analyzer"
                 className="group inline-flex items-center justify-center rounded-full bg-gold-gradient px-7 py-3.5 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.02] hover:shadow-[0_0_50px_rgba(245,226,125,0.5)]"
               >
-                ลองฟรี · ใส่วันเกิดดูจังหวะการขายของคุณ
+                วิเคราะห์ชื่อร้านฟรี
                 <span className="ml-2 transition group-hover:translate-x-1">→</span>
               </a>
               <a
-                href={LINE_OA_URL}
+                href="#insight"
                 className="inline-flex items-center justify-center rounded-full border border-gold/40 px-7 py-3.5 text-sm font-medium text-gold-light transition hover:border-gold hover:bg-gold/10"
+              >
+                ใส่วันเกิดดูจังหวะการขาย
+              </a>
+              <a
+                href={LINE_OA_URL}
+                className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white/75 transition hover:border-gold/40 hover:text-gold-light"
               >
                 เพิ่มเพื่อน LINE OA
               </a>
