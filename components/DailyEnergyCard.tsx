@@ -47,7 +47,7 @@ export default function DailyEnergyCard() {
       date: energy.dateKey,
     });
     const text = `พลังแม่ค้าวันนี้ ${energy.thaiDate}
-เลขประจำวัน ${energy.number} · ${energy.profile.planet}
+เลขประจำวัน ${energy.number} · ${energy.profile.planet.th}
 ${energy.mantra}
 ดูเพิ่มที่ mamulab.com`;
     try {
@@ -109,7 +109,7 @@ ${energy.mantra}
               </p>
               <h2 className="mt-1 font-display text-xl text-white sm:text-2xl md:text-3xl">
                 {mounted
-                  ? `พลังแม่ค้าวันนี้ — เลข ${energy.number} ${energy.profile.planet}`
+                  ? `พลังแม่ค้าวันนี้ — เลข ${energy.number} ${energy.profile.planet.th}`
                   : "พลังแม่ค้าวันนี้"}
               </h2>
               <p className="mt-2 text-sm text-white/75 sm:text-base">

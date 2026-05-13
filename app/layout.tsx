@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Prompt, Cinzel } from "next/font/google";
 import Analytics from "@/components/Analytics";
 import FloatingLine from "@/components/FloatingLine";
+import FloatingMember from "@/components/FloatingMember";
 import "./globals.css";
 
 const prompt = Prompt({
@@ -53,6 +54,7 @@ export default function RootLayout({
     <html lang="th" className={`${prompt.variable} ${cinzel.variable}`}>
       <body className="font-sans bg-midnight-deep text-white antialiased">
         {children}
+        <FloatingMember />
         <FloatingLine />
         <Analytics />
       </body>

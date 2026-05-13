@@ -26,35 +26,40 @@ export default function Hero() {
               </span>
             </h1>
 
+            <p className="font-display text-lg text-gold-gradient md:text-xl max-w-xl leading-relaxed">
+              คุณมาถูกที่แล้ว — คุณมาเจอขุมทรัพย์ที่แท้จริงแล้ว ✨
+            </p>
+
             <p className="text-base text-white/75 md:text-lg max-w-xl leading-relaxed">
               ใช้ศาสตร์ตัวเลข + มูเก็ตติ้ง + ระบบคอนเทนต์
               ช่วยแม่ค้าออนไลน์มูอย่างมีระบบ ให้ยอดขายพุ่งขึ้นจริง
             </p>
 
-            <p className="text-sm italic text-gold-light/70 max-w-xl">
-              A numerology &amp; “Muketing” lab for Thai online sellers who want
-              to turn belief into predictable sales growth.
-            </p>
-
             <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap sm:items-center">
               <a
-                href="#name-analyzer"
+                href="/member"
                 className="group inline-flex items-center justify-center rounded-full bg-gold-gradient px-7 py-3.5 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.02] hover:shadow-[0_0_50px_rgba(245,226,125,0.5)]"
               >
-                วิเคราะห์ชื่อร้านฟรี
+                🔓 เข้าสู่พื้นที่สมาชิก Premium
                 <span className="ml-2 transition group-hover:translate-x-1">→</span>
               </a>
               <a
-                href="#insight"
+                href="#name-analyzer"
                 className="inline-flex items-center justify-center rounded-full border border-gold/40 px-7 py-3.5 text-sm font-medium text-gold-light transition hover:border-gold hover:bg-gold/10"
               >
-                ใส่วันเกิดดูจังหวะการขาย
+                วิเคราะห์ชื่อร้านฟรี →
+              </a>
+              <a
+                href="#insight"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white/75 transition hover:border-gold/40 hover:text-gold-light"
+              >
+                ใส่วันเกิด
               </a>
               <a
                 href={LINE_OA_URL}
                 className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white/75 transition hover:border-gold/40 hover:text-gold-light"
               >
-                เพิ่มเพื่อน LINE OA
+                LINE OA
               </a>
             </div>
 
