@@ -13,8 +13,8 @@ const TOOLS = [
   {
     slug: "live-calendar",
     title: "ปฏิทินฤกษ์ Live ของคุณ",
-    desc: "ปฏิทินตลอดเดือน — ช่วงเวลาทอง Live ตามเลขส่วนตัวของคุณ",
-    badge: "Coming soon",
+    desc: "ปฏิทินตลอดเดือน — ไฮไลต์วันทอง · เวลาทอง · คำแนะนำตามวัน ใช้วันเกิดคำนวณ",
+    badge: "Live",
   },
   {
     slug: "personal-mantra",
