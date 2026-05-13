@@ -19,8 +19,8 @@ const TOOLS = [
   {
     slug: "personal-mantra",
     title: "มันตราส่วนตัวจากวันเกิด",
-    desc: "สร้างมันตรา 3 บทเฉพาะคุณจากวันเกิด + Export PDF",
-    badge: "Coming soon",
+    desc: "สร้างมันตรา 3 บทเฉพาะคุณจากวันเกิด · เปิดวัน / ปิดดีล / ดูแลใจ · พิมพ์ PDF ได้",
+    badge: "Live",
   },
 ] as const;
 
