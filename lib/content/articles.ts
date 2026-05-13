@@ -4,6 +4,9 @@ import Mantra, { meta as mantraMeta } from "./articles/mantra";
 import Colors, { meta as colorsMeta } from "./articles/colors";
 import Bio, { meta as bioMeta } from "./articles/bio";
 import LiveScripts, { meta as liveScriptsMeta } from "./articles/liveScripts";
+import LiveCalendar, { meta as liveCalendarMeta } from "./articles/liveCalendar";
+import CustomerMatch, { meta as customerMatchMeta } from "./articles/customerMatch";
+import MonthlyMu, { meta as monthlyMuMeta } from "./articles/monthlyMu";
 
 export type ArticleMeta = {
   slug: string;
@@ -20,6 +23,9 @@ export type ArticleEntry = ArticleMeta & {
 
 /** Master registry of premium articles. Newest first. */
 export const ARTICLES: ArticleEntry[] = [
+  { ...liveCalendarMeta, Content: LiveCalendar },
+  { ...customerMatchMeta, Content: CustomerMatch },
+  { ...monthlyMuMeta, Content: MonthlyMu },
   { ...colorsMeta, Content: Colors },
   { ...bioMeta, Content: Bio },
   { ...liveScriptsMeta, Content: LiveScripts },
