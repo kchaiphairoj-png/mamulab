@@ -5,6 +5,7 @@ import NameAnalyzer from "@/components/NameAnalyzer";
 import Pain from "@/components/Pain";
 import About from "@/components/About";
 import Method from "@/components/Method";
+import PremiumPreview from "@/components/PremiumPreview";
 import LeadMagnet from "@/components/LeadMagnet";
 import WhoFor from "@/components/WhoFor";
 import Program from "@/components/Program";
@@ -23,6 +24,7 @@ export default function HomePage() {
       <Pain />
       <About />
       <Method />
+      <PremiumPreview />
       <LeadMagnet />
       <WhoFor />
       <Program />
