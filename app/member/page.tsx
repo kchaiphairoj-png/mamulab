@@ -64,10 +64,10 @@ export default async function MemberDashboard() {
             <div>
               <p className="text-sm text-gold-light">ยังไม่ได้เป็นสมาชิก</p>
               <p className="mt-1 font-display text-2xl text-white">
-                ปลดล็อกเนื้อหาเชิงลึก 599 บาท / ปี
+                ปลดล็อก MAMULAB Library · 599 บาท / ปี
               </p>
               <p className="mt-1 text-sm text-white/65">
-                บทความเชิงลึก, mini courses, เครื่องมือเลขศาสตร์, และเนื้อหารายสัปดาห์
+                บทความเชิงลึก 8 บท · เครื่องมือคำนวณ 3 ตัว · พลังประจำสัปดาห์ที่อัปเดตทุกจันทร์
               </p>
             </div>
             <Link
@@ -84,7 +84,7 @@ export default async function MemberDashboard() {
       <section className="grid gap-5 md:grid-cols-3">
         <DashboardCard
           title="บทความเชิงลึก"
-          desc="10 บทความเลขศาสตร์ + กลยุทธ์การขายแบบเฉพาะกลุ่ม"
+          desc="8 บทความ practical สำหรับแม่ค้าออนไลน์ — Live, Pricing, Branding, Mindset"
           href="/member/articles"
           available={status.isActive}
         />

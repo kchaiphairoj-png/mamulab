@@ -40,7 +40,7 @@ export default function Hero() {
                 href="/member"
                 className="group inline-flex items-center justify-center rounded-full bg-gold-gradient px-7 py-3.5 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.02] hover:shadow-[0_0_50px_rgba(245,226,125,0.5)]"
               >
-                🔓 เข้าสู่พื้นที่สมาชิก Premium
+                🔓 เข้า MAMULAB Library · 599 บาท / ปี
                 <span className="ml-2 transition group-hover:translate-x-1">→</span>
               </a>
               <a

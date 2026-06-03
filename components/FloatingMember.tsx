@@ -22,7 +22,7 @@ export default function FloatingMember() {
   return (
     <Link
       href="/member"
-      aria-label="เข้าสู่พื้นที่สมาชิก Premium"
+      aria-label="เข้า MAMULAB Library"
       className="group fixed bottom-[88px] right-5 z-50 flex items-center gap-3 rounded-full border border-gold/40 bg-midnight-deep/95 px-4 py-3 shadow-glow backdrop-blur transition hover:scale-105 hover:border-gold sm:bottom-[104px] sm:right-8"
     >
       <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gold-gradient text-midnight-deep">
@@ -36,7 +36,7 @@ export default function FloatingMember() {
         </svg>
       </span>
       <span className="hidden pr-1 text-sm font-medium text-gold-light sm:inline">
-        พื้นที่สมาชิก
+        MAMULAB Library
       </span>
     </Link>
   );

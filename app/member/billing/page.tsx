@@ -36,14 +36,14 @@ export default async function BillingPage() {
           แพ็กเกจสมาชิก
         </p>
         <h2 className="mt-2 font-display text-2xl text-white">
-          MAMULAB Member · 599 บาท / ปี
+          MAMULAB Library · 599 บาท / ปี
         </h2>
         <ul className="mt-5 space-y-2 text-sm text-white/80">
           {[
-            "เข้าถึงบทความเชิงลึก 10+ เรื่อง",
-            "เครื่องมือคำนวณชื่อร้านขั้นสูง + ปฏิทินฤกษ์ Live",
-            "พลังประจำสัปดาห์เฉพาะเลขของคุณ (อัปเดตทุกจันทร์)",
-            "Mini course วิดีโอ 5–15 นาที",
+            "บทความเชิงลึก 8 บท (~76 นาทีอ่าน) — Live, Pricing, Branding, Mindset",
+            "คำนวณชื่อร้านขั้นสูง + ปฏิทินฤกษ์ Live + สร้างมันตราส่วนตัว",
+            "พลังประจำสัปดาห์ที่อัปเดตทุกวันจันทร์ (52 ครั้ง/ปี)",
+            "Export PDF เครื่องมือเป็นเอกสารส่วนตัว",
           ].map((b) => (
             <li key={b} className="flex items-start gap-2">
               <span className="mt-1 h-1.5 w-1.5 rounded-full bg-gold" />
@@ -51,6 +51,9 @@ export default async function BillingPage() {
             </li>
           ))}
         </ul>
+        <p className="mt-4 text-xs text-white/45">
+          จ่ายครั้งเดียวใช้ได้ 365 วัน · ไม่ต่ออายุอัตโนมัติ · ไม่มี community/วิดีโอ/Q&amp;A
+        </p>
 
         {status.isActive ? (
           <div className="mt-6 rounded-2xl border border-gold/40 bg-gold/10 p-4 text-sm">

@@ -43,15 +43,18 @@ export default function PremiumPreview() {
         {/* Heading */}
         <div className="mx-auto max-w-3xl text-center">
           <p className="mb-3 text-xs uppercase tracking-[0.3em] text-gold/70">
-            Inside MAMULAB Member · ดูตัวอย่าง
+            MAMULAB Library · คลังเนื้อหาเชิงลึก
           </p>
           <h2 className="font-display text-3xl text-white md:text-5xl leading-tight">
-            ในห้องลึก
-            <span className="text-gold-gradient">มีอะไรให้คุณ</span>
+            สิ่งที่อยู่ใน
+            <span className="text-gold-gradient">คลัง</span>
+            <br className="hidden md:block" />
+            จ่ายครั้งเดียว · ใช้ได้ 365 วัน
           </h2>
           <p className="mt-5 text-white/70 max-w-xl mx-auto leading-relaxed">
-            {totalArticles} บทความเชิงลึก · 3 เครื่องมือ interactive · พลังประจำสัปดาห์
-            อัปเดตทุกวันจันทร์ — เนื้อหาที่นำไปทำกับเพจตัวเองได้ในวันเดียว
+            ราคา 599 บาทแลกกับ <span className="text-gold-light">{totalArticles} บทความเชิงลึก
+            + 3 เครื่องมือคำนวณส่วนตัว + พลังประจำสัปดาห์ที่อัปเดตเองทุกจันทร์</span>{" "}
+            — เห็นทุกอย่างที่ได้ก่อนตัดสินใจ
           </p>
         </div>
 
@@ -161,37 +164,50 @@ export default function PremiumPreview() {
         {/* Pricing CTA */}
         <div className="mx-auto mt-14 max-w-2xl rounded-[2rem] border border-gold/40 bg-gradient-to-br from-midnight-soft via-midnight to-midnight-deep p-8 text-center shadow-glow md:p-10">
           <p className="text-xs uppercase tracking-[0.3em] text-gold/70">
-            ปลดล็อกทั้งหมด
+            MAMULAB Library — Lifetime Access 1 ปี
           </p>
           <p className="mt-3 font-display text-4xl text-white md:text-5xl">
             ฿599<span className="ml-1 text-lg text-white/55">/ ปี</span>
           </p>
-          <p className="mt-1 text-sm text-white/55">~50 บาท/เดือน · ใช้ได้ 365 วัน</p>
+          <p className="mt-1 text-sm text-white/55">~50 บาท/เดือน · ใช้ได้ 365 วัน · จ่ายครั้งเดียว ไม่ต่ออายุอัตโนมัติ</p>
 
-          <ul className="mx-auto mt-7 max-w-md space-y-2 text-left text-sm text-white/85">
-            {[
-              `บทความเชิงลึก ${totalArticles} บท + ที่เพิ่มในอนาคต`,
-              "เครื่องมือ 3 ตัว ใช้กับเพจตัวเองได้ทันที",
-              "พลังประจำสัปดาห์ส่วนตัว · อัปเดตทุกจันทร์",
-              "บทความและเครื่องมือใหม่ตลอดปี",
-            ].map((b) => (
-              <li key={b} className="flex items-start gap-3">
-                <span className="mt-0.5 text-gold-light">✓</span>
-                <span>{b}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-7 grid gap-3 text-left text-sm md:grid-cols-2">
+            <div className="rounded-2xl border border-emerald-400/30 bg-emerald-500/5 p-4">
+              <p className="text-[10px] uppercase tracking-[0.25em] text-emerald-300">
+                ✓ ได้
+              </p>
+              <ul className="mt-2 space-y-1.5 text-white/85">
+                <li>· {totalArticles} บทความเชิงลึก (~76 นาที)</li>
+                <li>· เครื่องมือคำนวณส่วนตัว 3 ตัว</li>
+                <li>· พลังประจำสัปดาห์ · 52 ครั้ง/ปี</li>
+                <li>· เครื่องมือ PDF Export</li>
+                <li>· เข้าใหม่ได้ทุกวัน 365 วัน</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+              <p className="text-[10px] uppercase tracking-[0.25em] text-white/55">
+                ✗ ยังไม่มี (จะแจ้งถ้าเพิ่ม)
+              </p>
+              <ul className="mt-2 space-y-1.5 text-white/55">
+                <li>· Community / Forum</li>
+                <li>· Live Q&amp;A session</li>
+                <li>· วิดีโอ mini course</li>
+                <li>· ที่ปรึกษา 1-on-1</li>
+                <li>· Email digest อัตโนมัติ</li>
+              </ul>
+            </div>
+          </div>
 
           <Link
             href="/member"
             className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-8 py-3.5 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.02]"
           >
-            🔓 ปลดล็อก Member · 599 บาท
+            🔓 ปลดล็อก Library · 599 บาท
             <span aria-hidden>→</span>
           </Link>
 
           <p className="mt-5 text-[11px] text-white/45">
-            จ่ายแล้วใช้งานได้ทันทีหลังอัปโหลดสลิป · ไม่มีระบบ auto-renew
+            จ่ายแล้วใช้งานได้ทันทีหลังอัปโหลดสลิป · ไม่มีระบบ auto-renew · ไม่บังคับต่ออายุ
           </p>
         </div>
       </Container>
