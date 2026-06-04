@@ -8,8 +8,25 @@ const LINE_OA_URL = SOCIAL.line;
 export const metadata = {
   title: "For True Believers in Luck & Prosperity | MAMULAB",
   description:
-    "Curated talismans for those who believe — Enochian Coin & Japanese Money-Attraction Long Wallet. Limited pieces, hand-selected by MAMULAB.",
+    "Curated talismans for those who believe — Enochian Coin (พระประดิษฐาน วัดบางพันธุ์) & BeRichy Long Wallet collection. Limited pieces, hand-selected by MAMULAB.",
 };
+
+// Image paths under /public/prosperity/ — drop the photos in this folder and
+// they appear automatically. Until then a soft gold gradient placeholder shows.
+const IMG = {
+  wallets: "/prosperity/wallets-lineup.jpg",
+  walletDetail: "/prosperity/wallet-detail.jpg",
+  coinFaces: "/prosperity/coin-faces.jpg",
+  coinBox: "/prosperity/coin-box.jpg",
+};
+
+const WALLET_COLORS = [
+  { name: "ครีม", hex: "#e8dec1", trait: "พลังอ่อนโยน · ดูดเงินสุภาพ" },
+  { name: "ดำ", hex: "#1c1410", trait: "พลังอำนาจ · เก็บเงินมั่นคง" },
+  { name: "เขียวเข้ม", hex: "#2c4232", trait: "พลังเติบโต · ลงทุนคืนกลับ" },
+  { name: "แดง", hex: "#a02222", trait: "พลังเสน่ห์ · เรียกลูกค้า" },
+  { name: "น้ำตาล", hex: "#7a4828", trait: "พลังมั่นคง · รากฐานแน่น" },
+];
 
 export default function ProsperityPage() {
   return (
@@ -50,9 +67,16 @@ export default function ProsperityPage() {
             <p className="mt-8 text-white/75 max-w-2xl mx-auto leading-relaxed md:text-lg">
               สำหรับคนที่<em>เชื่อ</em>ในความเชื่อ — และอยากเชิญพลังแห่งความมั่งคั่ง
               เข้ามาในชีวิตอย่างรวดเร็ว
-              MAMULAB คัดสรรของ 2 ชิ้น จาก 2 ศาสตร์โบราณที่คนทั่วโลกบูชา —
-              <span className="text-gold-light"> Enochian Coin</span> และ
-              <span className="text-gold-light"> กระเป๋าสตางค์ใบยาวดูดเงินญี่ปุ่น</span>
+              MAMULAB คัดสรร 2 ชิ้นจาก 2 ศาสตร์ที่คนทั่วโลกบูชา —
+              <span className="text-gold-light">
+                {" "}
+                เหรียญอีโนเชี่ยน (พระประดิษฐาน วัดบางพันธุ์)
+              </span>{" "}
+              และ
+              <span className="text-gold-light">
+                {" "}
+                BeRichy กระเป๋าสตางค์ใบยาวดูดเงินสไตล์ญี่ปุ่น
+              </span>
             </p>
 
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-xs text-white/55">
@@ -74,36 +98,39 @@ export default function ProsperityPage() {
       <section className="relative bg-midnight py-20 md:py-28">
         <Container>
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
-            {/* Visual */}
-            <div className="relative order-1 md:order-1">
-              <CoinVisual />
+            <div className="relative order-1">
+              <ProductImage
+                src={IMG.coinFaces}
+                alt="เหรียญอีโนเชี่ยน — หน้าและหลัง"
+                aspect="aspect-[4/5]"
+              />
             </div>
 
-            {/* Description */}
-            <div className="order-2 md:order-2 space-y-6">
+            <div className="order-2 space-y-6">
               <p className="text-xs uppercase tracking-[0.3em] text-gold/70">
-                Item 01 · The Enochian Coin
+                Item 01 · เหรียญอีโนเชี่ยน
               </p>
               <h2 className="font-display text-3xl text-white md:text-5xl leading-tight">
                 <span className="text-gold-gradient">Enochian Coin</span>
                 <span className="block mt-2 text-xl font-sans font-medium text-white/85 md:text-2xl">
-                  เหรียญลึกลับจากศาสตร์ Enochian
+                  พระประดิษฐาน · วัดบางพันธุ์
                 </span>
               </h2>
 
               <p className="text-white/80 leading-relaxed">
-                Enochian คือศาสตร์โบราณที่ John Dee นักปราชญ์ของราชสำนักอังกฤษ
-                ในศตวรรษที่ 16 ค้นพบ ผ่านการสื่อสารกับ ‘ภาษาของทูตสวรรค์’ —
-                เหรียญ Enochian Coin ถูกใช้สัญลักษณ์<em>ความมั่งคั่ง ความรุ่งเรือง
-                และการปลดล็อกศักยภาพในตัวเอง</em>
+                เหรียญอีโนเชี่ยน คือเหรียญศักดิ์สิทธิ์ที่รวมพลัง 2 ศาสตร์เข้าด้วยกัน —
+                ด้านหน้าคือ<em>พระประดิษฐาน</em> เทพแห่งความมั่งคั่งและความสำเร็จ
+                ด้านหลังคือ<em>สัญลักษณ์อีโนเชี่ยน</em>
+                (Sigillum Dei Aemeth) แห่งวงรอบเจ็ดทิศ
+                ที่ John Dee ปราชญ์ราชสำนักอังกฤษศตวรรษที่ 16 ใช้ในพิธีกรรมเรียกพลังบวก
               </p>
 
               <ul className="space-y-3 text-sm text-white/85">
                 {[
-                  "พกพาในกระเป๋าสตางค์เพื่อ ‘ลื่นไหลเรื่องเงิน’",
-                  "วางบนโต๊ะทำงานเพื่อพลังความสำเร็จ",
-                  "ใช้เป็นเครื่องบูชาในการทำสมาธิเรื่องความมั่งคั่ง",
-                  "สำหรับเจ้าของกิจการที่เชื่อใน ‘พลังเชิงสัญลักษณ์’ ของวัตถุ",
+                  "เหรียญทองแดง — เนื้อกลั่นพิเศษจากวัดบางพันธุ์ กรุงเทพมหานคร",
+                  "กรอบโลหะคุณภาพสูง ห้อยพกได้ ไม่กระทบหากสัมผัส",
+                  "พร้อมกล่องประกอบพิธีและกระดาษเขียนเป้าหมาย",
+                  "ใบประกอบพิธีกรรม 1 ปี (เปิดอ่านครั้งเดียวตอนครบรอบ)",
                 ].map((b) => (
                   <li key={b} className="flex items-start gap-3">
                     <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-light" />
@@ -135,58 +162,86 @@ export default function ProsperityPage() {
                   <LineIcon /> สอบถาม / สั่งซื้อทาง LINE OA
                 </a>
                 <p className="mt-3 text-center text-[11px] text-white/45">
-                  ทักมาบอกว่า ‘สนใจ Enochian Coin’ — ทีมงานจะส่งภาพชัด + วิธีโอน
+                  ทักมาบอกว่า ‘สนใจเหรียญอีโนเชี่ยน’ — ทีมงานจะส่งภาพชัด + วิธีโอน
                 </p>
               </div>
+            </div>
+          </div>
+
+          {/* Ritual instructions */}
+          <div className="mt-16 grid gap-10 md:grid-cols-[1fr_1fr] md:items-start">
+            <ProductImage
+              src={IMG.coinBox}
+              alt="เหรียญอีโนเชี่ยนในกล่องพร้อมใบประกอบพิธี"
+              aspect="aspect-[3/4]"
+            />
+            <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-7 md:p-9">
+              <p className="text-xs uppercase tracking-[0.3em] text-gold-light">
+                วิธีใช้กล่องอีโนเชี่ยนเพื่อความสำเร็จ
+              </p>
+              <h3 className="mt-2 font-display text-2xl text-white md:text-3xl leading-snug">
+                พิธีกรรม 1 ปี
+              </h3>
+              <ol className="mt-6 space-y-3 text-sm text-white/85">
+                {[
+                  "นำเหรียญอีโนเชี่ยน (หรือกำไล) ออกจากกล่อง — เหลือกล่องเปล่าให้เห็นสัญลักษณ์ที่ก้นกล่องชัดเจน",
+                  "เตรียมกระดาษแผ่นเล็ก 10 แผ่น เขียนเป้าหมายที่ต้องการ — เรื่องละ 1 แผ่น แยกต่างหาก พร้อมระบุวันเดือนปีที่อยากให้สำเร็จ",
+                  "เขียนเสร็จ อ่านออกเสียงแผ่นละ 10 รอบ แล้วใส่กระดาษทั้ง 10 แผ่นลงในกล่อง",
+                  "ปิดฝากล่อง",
+                  "นำไปวางในที่มิดชิด เก็บเงียบ ๆ ไว้ 1 ปีเต็ม",
+                  "ครบ 1 ปี นำมาเปิดอ่านทบทวน — ดูว่าสำเร็จกี่ข้อ",
+                ].map((step, i) => (
+                  <li key={i} className="flex items-start gap-4">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-gold/40 bg-gold/10 font-display text-sm text-gold-light">
+                      {i + 1}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-6 text-[11px] text-white/45 leading-relaxed">
+                * พิธีกรรมนี้เป็นความเชื่อตามตำราโบราณ ใช้เพื่อจัดระเบียบเจตจำนงและสมาธิ
+                ไม่ใช่คำสัญญาผลลัพธ์
+              </p>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Product 2: Japanese Money Wallet */}
+      {/* Product 2: BeRichy Wallets */}
       <section className="relative bg-midnight-deep py-20 md:py-28">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_50%,_rgba(91,63,163,0.18),_transparent_60%)] pointer-events-none" />
         <Container className="relative">
           <div className="grid gap-12 md:grid-cols-2 md:items-center">
-            {/* Description */}
             <div className="order-2 md:order-1 space-y-6">
               <p className="text-xs uppercase tracking-[0.3em] text-gold/70">
-                Item 02 · 黄金財布
+                Item 02 · BeRichy Wallet
               </p>
               <h2 className="font-display text-3xl text-white md:text-5xl leading-tight">
-                <span className="text-gold-gradient">
-                  Japanese Money-Attraction Wallet
-                </span>
+                <span className="text-gold-gradient">BeRichy</span>
                 <span className="block mt-2 text-xl font-sans font-medium text-white/85 md:text-2xl">
-                  กระเป๋าสตางค์ใบยาวดูดเงินสไตล์ญี่ปุ่น
+                  กระเป๋าดี · พิธีดี · สีถูกโฉลก
                 </span>
               </h2>
 
+              <p className="italic text-gold-light/85 leading-relaxed">
+                “เก็บเงินอยู่นาน · ออมเงินเพิ่มพูน · คู่ควรกับเงินสุดที่รักของคุณ”
+              </p>
+
               <p className="text-white/80 leading-relaxed">
-                ตามตำราโบราณของญี่ปุ่น — ธนบัตรเป็น ‘แขกผู้มีเกียรติ’ ที่ต้องเดินตรง
-                ไม่งอตัวในกระเป๋า กระเป๋าใบยาวจึง<em>เคารพ</em>เงิน และเงินจะ<em>กลับมา</em>
+                BeRichy คือกระเป๋าสตางค์ใบยาวที่ออกแบบตามหลัก<em>金運</em>{" "}
+                (Kin-un — โชคทางการเงินของญี่ปุ่น) —
+                ธนบัตรเป็น<em>แขกผู้มีเกียรติ</em> ที่ต้องเดินตรง ไม่งอตัวในกระเป๋า
+                กระเป๋าใบยาวจึง<em>เคารพ</em>เงิน และเงินจะ<em>กลับมา</em>
                 หาเจ้าของอย่างต่อเนื่อง
               </p>
 
               <p className="text-white/80 leading-relaxed">
-                คัดสรรในโทนหนัง<span className="text-gold-light">ทองและดำ</span>{" "}
-                ที่ตรงกับศาสตร์<em>金運</em> (Kin-un) หรือ ‘โชคทางการเงิน’
-                ของญี่ปุ่น ซึ่งเป็นสีที่ดึงดูดความมั่งคั่งสูงสุด
+                หนังคุณภาพสูง · เย็บมือ · มีให้เลือก{" "}
+                <span className="text-gold-light">5 สี</span>{" "}
+                ตามพลังที่อยากเรียก — เลือกสีถูกโฉลกตามเลขเจ้าของของคุณ
+                (ใช้ <Link href="/member/tools/shop-name" className="underline hover:text-gold-light">เครื่องมือคำนวณ</Link> ก่อนเลือกสี)
               </p>
-
-              <ul className="space-y-3 text-sm text-white/85">
-                {[
-                  "ใบยาว ธนบัตรอยู่ตรง ไม่งอ — เคารพเงิน ตามตำราญี่ปุ่น",
-                  "หนังโทนทอง/ดำ ตามศาสตร์ Kin-un (金運)",
-                  "ของขวัญตัวเองให้พลังการเงินรอบใหม่",
-                  "ใช้คู่กับ Enochian Coin เพิ่มพลังร่วม",
-                ].map((b) => (
-                  <li key={b} className="flex items-start gap-3">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-light" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
 
               <div className="rounded-3xl border border-gold/40 bg-gradient-to-br from-gold/15 via-violet/5 to-transparent p-6">
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
@@ -208,18 +263,65 @@ export default function ProsperityPage() {
                   rel="noopener noreferrer"
                   className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-3.5 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.01]"
                 >
-                  <LineIcon /> สอบถาม / สั่งซื้อทาง LINE OA
+                  <LineIcon /> สั่งซื้อ / เช็คสีและสต็อกใน LINE OA
                 </a>
                 <p className="mt-3 text-center text-[11px] text-white/45">
-                  ทักมาบอกว่า ‘สนใจกระเป๋าญี่ปุ่น’ — ทีมงานจะส่งภาพรายละเอียดให้เลือก
+                  ทักว่า ‘สนใจ BeRichy สี ...’ — ทีมงานจะส่งภาพชัดของสีนั้น
                 </p>
               </div>
             </div>
 
-            {/* Visual */}
             <div className="relative order-1 md:order-2">
-              <WalletVisual />
+              <ProductImage
+                src={IMG.wallets}
+                alt="BeRichy กระเป๋าสตางค์ใบยาว 5 สี"
+                aspect="aspect-square"
+              />
             </div>
+          </div>
+
+          {/* 5 colors palette */}
+          <div className="mt-16">
+            <div className="mb-6 text-center">
+              <p className="text-xs uppercase tracking-[0.3em] text-gold/70">
+                5 สีให้เลือก · ตามพลังที่อยากเรียก
+              </p>
+              <h3 className="mt-2 font-display text-2xl text-white md:text-3xl">
+                เลือกสี<span className="text-gold-gradient">ถูกโฉลก</span>
+              </h3>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+              {WALLET_COLORS.map((c) => (
+                <div
+                  key={c.name}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center"
+                >
+                  <div
+                    className="mx-auto h-16 w-16 rounded-full ring-2 ring-white/20"
+                    style={{ background: c.hex }}
+                    aria-hidden
+                  />
+                  <p className="mt-3 font-display text-lg text-white">
+                    {c.name}
+                  </p>
+                  <p className="mt-1 text-xs text-white/65 leading-relaxed">
+                    {c.trait}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Detail photos */}
+          <div className="mt-12">
+            <ProductImage
+              src={IMG.walletDetail}
+              alt="รายละเอียดงานเย็บ ภายในกระเป๋า BeRichy"
+              aspect="aspect-square"
+            />
+            <p className="mt-3 text-center text-xs text-white/55">
+              รายละเอียดงานเย็บมือ · ช่องใส่บัตร · ช่องใส่ธนบัตรกว้าง รับแบงก์ 1000 ได้พอดี
+            </p>
           </div>
         </Container>
       </section>
@@ -235,8 +337,7 @@ export default function ProsperityPage() {
               สั่งทั้ง <span className="text-gold-gradient">2 ชิ้นพร้อมกัน</span>
             </h2>
             <p className="mt-4 text-white/75 leading-relaxed">
-              สำหรับลูกค้าที่ต้องการพลังสองศาสตร์ทำงานร่วมกัน —
-              ทักเข้า LINE OA แจ้งว่า ‘สั่ง Bundle’
+              เหรียญอีโนเชี่ยน + BeRichy Wallet — ทักเข้า LINE OA แจ้งว่า ‘สั่ง Bundle’
               ทีมงานจะคุยส่วนลดและการจัดส่งให้คุณ
             </p>
             <p className="mt-3 text-sm text-gold-light">
@@ -269,15 +370,15 @@ export default function ProsperityPage() {
               {[
                 {
                   title: "Hand-selected",
-                  desc: "ผ่านการคัดเลือกจากแหล่งที่เราเข้าถึงเอง ไม่ใช่ของ mass production",
+                  desc: "BeRichy & เหรียญอีโนเชี่ยนผ่านการคัดเลือกจากต้นแหล่งจริง · ไม่ใช่ของ mass production",
                 },
                 {
                   title: "Tradition-honest",
-                  desc: "อธิบาย ‘ที่มา’ ของแต่ละชิ้นตามตำราจริง ไม่บิดเบือน",
+                  desc: "อธิบาย ‘ที่มา’ ของแต่ละชิ้นตามตำราจริง · ไม่บิดเบือนเป็นคำสัญญา",
                 },
                 {
                   title: "Limited stock",
-                  desc: "ของแต่ละชิ้นมีจำนวนน้อย — เพื่อให้ลูกค้ารู้สึก ‘เข้าถึงพิเศษ’",
+                  desc: "ของแต่ละชิ้นมีจำนวนน้อย · เพื่อให้ลูกค้ารู้สึก ‘เข้าถึงพิเศษ’",
                 },
               ].map((it) => (
                 <article
@@ -306,20 +407,24 @@ export default function ProsperityPage() {
             </h3>
 
             <Q
-              q="ของจริงไหม?"
-              a="MAMULAB คัดสรรของจริงทุกชิ้น — ลูกค้าได้รับของก่อนชำระเงินยินดี ส่งคืนได้ถ้าไม่ตรงตามอธิบาย ภายใน 7 วัน"
+              q="เหรียญอีโนเชี่ยนผ่านการประกอบพิธีไหม?"
+              a="ผ่านการประกอบพิธีจากวัดบางพันธุ์ กรุงเทพมหานคร · พร้อมกล่องและใบประกอบพิธี 1 ปีให้ครบ"
+            />
+            <Q
+              q="BeRichy ใบยาวมีกี่สี?"
+              a="5 สีหลัก — ครีม / ดำ / เขียวเข้ม / แดง / น้ำตาล · เลือกตามพลังที่อยากเรียก หรือสีตามเลขเจ้าของของคุณ"
             />
             <Q
               q="รับประกันโชคไหม?"
-              a="ไม่รับประกันโชคหรือผลลัพธ์ทางการเงิน — สิ่งของเหล่านี้เป็น symbol ของความเชื่อ ตามตำราโบราณ ความหมายในใจเจ้าของคือพลังที่แท้จริง"
+              a="ไม่รับประกันโชคหรือผลลัพธ์ทางการเงิน · สิ่งของเหล่านี้เป็น symbol ของความเชื่อตามตำราโบราณ — ความหมายในใจเจ้าของคือพลังที่แท้จริง"
             />
             <Q
               q="ส่งทั่วประเทศไหม?"
-              a="ส่งทั่วประเทศไทย ผ่าน Kerry / Flash Express ทักรายละเอียดใน LINE OA"
+              a="ส่งทั่วประเทศไทย ผ่าน Kerry / Flash Express · ทักรายละเอียดใน LINE OA"
             />
             <Q
               q="จ่ายอย่างไร?"
-              a="โอนเข้าบัญชีธนาคาร MAMULAB — ทีมงานจะส่งรายละเอียดให้ในแชท"
+              a="โอนเข้าบัญชีธนาคาร MAMULAB · ทีมงานจะส่งรายละเอียดให้ในแชท · ใช้สลิปจริงตามขั้นตอนปกติ"
             />
           </div>
 
@@ -358,174 +463,32 @@ function LineIcon() {
   );
 }
 
-function CoinVisual() {
+/**
+ * ProductImage — shows a real photo from /public/prosperity/ when available,
+ * with a premium gold/midnight gradient placeholder underneath so the layout
+ * never breaks (even before photos are uploaded).
+ */
+function ProductImage({
+  src,
+  alt,
+  aspect,
+}: {
+  src: string;
+  alt: string;
+  aspect: string;
+}) {
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-md">
-      <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_30%_30%,_rgba(245,226,125,0.4),_transparent_60%)] blur-2xl" />
-      <svg
-        viewBox="0 0 400 400"
-        className="relative h-full w-full"
-        aria-label="Enochian Coin"
-      >
-        <defs>
-          <linearGradient id="goldRim" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#f5e27d" />
-            <stop offset="50%" stopColor="#c9a84c" />
-            <stop offset="100%" stopColor="#7d5a00" />
-          </linearGradient>
-          <radialGradient id="coinFace" cx="0.35" cy="0.3">
-            <stop offset="0%" stopColor="#fff7d6" />
-            <stop offset="40%" stopColor="#e8c869" />
-            <stop offset="80%" stopColor="#a47a1f" />
-            <stop offset="100%" stopColor="#5a3f00" />
-          </radialGradient>
-        </defs>
-        {/* Outer ring */}
-        <circle cx="200" cy="200" r="180" fill="url(#coinFace)" />
-        <circle
-          cx="200"
-          cy="200"
-          r="180"
-          fill="none"
-          stroke="url(#goldRim)"
-          strokeWidth="6"
-        />
-        <circle
-          cx="200"
-          cy="200"
-          r="165"
-          fill="none"
-          stroke="url(#goldRim)"
-          strokeWidth="1.5"
-          strokeDasharray="3 6"
-        />
-        {/* Inner sigil — pentagram-like */}
-        <g
-          stroke="url(#goldRim)"
-          strokeWidth="2"
-          fill="none"
-          opacity="0.8"
-        >
-          <circle cx="200" cy="200" r="110" />
-          <circle cx="200" cy="200" r="80" />
-          {Array.from({ length: 7 }).map((_, i) => {
-            const angle = (i / 7) * Math.PI * 2 - Math.PI / 2;
-            const x = 200 + Math.cos(angle) * 110;
-            const y = 200 + Math.sin(angle) * 110;
-            return (
-              <line
-                key={i}
-                x1="200"
-                y1="200"
-                x2={x}
-                y2={y}
-              />
-            );
-          })}
-          {Array.from({ length: 7 }).map((_, i) => {
-            const angle = (i / 7) * Math.PI * 2 - Math.PI / 2;
-            const x = 200 + Math.cos(angle) * 110;
-            const y = 200 + Math.sin(angle) * 110;
-            return (
-              <circle key={`c${i}`} cx={x} cy={y} r="4" fill="url(#goldRim)" />
-            );
-          })}
-        </g>
-        {/* Center mark */}
-        <text
-          x="200"
-          y="218"
-          textAnchor="middle"
-          fontFamily="serif"
-          fontSize="64"
-          fontWeight="700"
-          fill="url(#goldRim)"
-        >
-          ✦
-        </text>
-      </svg>
-    </div>
-  );
-}
-
-function WalletVisual() {
-  return (
-    <div className="relative mx-auto aspect-[5/3] w-full max-w-md">
-      <div className="absolute inset-0 rounded-3xl bg-[radial-gradient(circle_at_70%_30%,_rgba(245,226,125,0.35),_transparent_60%)] blur-2xl" />
-      <svg
-        viewBox="0 0 500 300"
-        className="relative h-full w-full"
-        aria-label="Japanese Money-Attraction Long Wallet"
-      >
-        <defs>
-          <linearGradient id="walletGold" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#3a2f10" />
-            <stop offset="50%" stopColor="#1c1410" />
-            <stop offset="100%" stopColor="#0a0a0a" />
-          </linearGradient>
-          <linearGradient id="walletStitch" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#f5e27d" />
-            <stop offset="100%" stopColor="#a47a1f" />
-          </linearGradient>
-        </defs>
-        {/* Wallet body */}
-        <rect
-          x="30"
-          y="40"
-          width="440"
-          height="220"
-          rx="18"
-          fill="url(#walletGold)"
-          stroke="url(#walletStitch)"
-          strokeWidth="2"
-        />
-        {/* Horizontal fold line */}
-        <line
-          x1="30"
-          y1="150"
-          x2="470"
-          y2="150"
-          stroke="url(#walletStitch)"
-          strokeWidth="1.5"
-          strokeDasharray="6 4"
-          opacity="0.7"
-        />
-        {/* Stitch border */}
-        <rect
-          x="42"
-          y="52"
-          width="416"
-          height="196"
-          rx="14"
-          fill="none"
-          stroke="url(#walletStitch)"
-          strokeWidth="1"
-          strokeDasharray="3 4"
-          opacity="0.85"
-        />
-        {/* Gold emblem 金運 */}
-        <g transform="translate(250 150)">
-          <circle
-            cx="0"
-            cy="0"
-            r="40"
-            fill="none"
-            stroke="url(#walletStitch)"
-            strokeWidth="2"
-          />
-          <text
-            x="0"
-            y="12"
-            textAnchor="middle"
-            fontFamily="serif"
-            fontSize="32"
-            fontWeight="700"
-            fill="url(#walletStitch)"
-          >
-            金
-          </text>
-        </g>
-      </svg>
+    <div
+      className={`relative overflow-hidden rounded-3xl border border-gold/30 bg-gradient-to-br from-midnight-soft via-royal/30 to-midnight ${aspect}`}
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(245,226,125,0.18),_transparent_60%)]" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        className="relative h-full w-full object-cover"
+      />
     </div>
   );
 }
