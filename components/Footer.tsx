@@ -89,6 +89,14 @@ export default function Footer() {
                   ขอรับเช็กลิสต์ฟรี
                 </a>
               </li>
+              <li>
+                <Link
+                  href="/prosperity"
+                  className="transition hover:text-gold-light"
+                >
+                  ✦ Talismans Collection
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
