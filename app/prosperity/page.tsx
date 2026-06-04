@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Container from "@/components/Container";
 import Footer from "@/components/Footer";
-import { SOCIAL } from "@/lib/config";
 
-const LINE_OA_URL = SOCIAL.line;
+// Direct sales contact for the Talismans Collection (BeRichy + Enochian).
+// Customers tap the button → LINE opens with this ID pre-filled so they can
+// add as friend and chat to order.
+const LINE_ID = "bananasweet4297";
+const LINE_ADD_URL = `https://line.me/R/ti/p/~${LINE_ID}`;
 
 export const metadata = {
   title: "For True Believers in Luck & Prosperity | MAMULAB",
@@ -86,9 +89,14 @@ export default function ProsperityPage() {
               <span className="rounded-full border border-gold/30 bg-white/5 px-4 py-1.5 tracking-widest">
                 ✦ Hand-selected
               </span>
-              <span className="rounded-full border border-gold/30 bg-white/5 px-4 py-1.5 tracking-widest">
-                ✦ Order via LINE OA
-              </span>
+              <a
+                href={LINE_ADD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-emerald-400/40 bg-emerald-500/10 px-4 py-1.5 tracking-widest text-emerald-200 transition hover:bg-emerald-500/20"
+              >
+                ✦ LINE: {LINE_ID}
+              </a>
             </div>
           </div>
         </Container>
@@ -154,12 +162,12 @@ export default function ProsperityPage() {
                   </p>
                 </div>
                 <a
-                  href={LINE_OA_URL}
+                  href={LINE_ADD_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-3.5 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.01]"
                 >
-                  <LineIcon /> สอบถาม / สั่งซื้อทาง LINE OA
+                  <LineIcon /> สนใจติดต่อไลน์ไอดี {LINE_ID}
                 </a>
                 <p className="mt-3 text-center text-[11px] text-white/45">
                   ทักมาบอกว่า ‘สนใจเหรียญอีโนเชี่ยน’ — ทีมงานจะส่งภาพชัด + วิธีโอน
@@ -168,7 +176,7 @@ export default function ProsperityPage() {
             </div>
           </div>
 
-          {/* Ritual instructions */}
+          {/* Ritual instructions — keep at end of section 1 */}
           <div className="mt-16 grid gap-10 md:grid-cols-[1fr_1fr] md:items-start">
             <ProductImage
               src={IMG.coinBox}
@@ -258,15 +266,15 @@ export default function ProsperityPage() {
                   </p>
                 </div>
                 <a
-                  href={LINE_OA_URL}
+                  href={LINE_ADD_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-3.5 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.01]"
                 >
-                  <LineIcon /> สั่งซื้อ / เช็คสีและสต็อกใน LINE OA
+                  <LineIcon /> สนใจติดต่อไลน์ไอดี {LINE_ID}
                 </a>
                 <p className="mt-3 text-center text-[11px] text-white/45">
-                  ทักว่า ‘สนใจ BeRichy สี ...’ — ทีมงานจะส่งภาพชัดของสีนั้น
+                  ทักว่า ‘สนใจ BeRichy สี ...’ — ทีมงานจะส่งภาพชัดของสีนั้น + เช็คสต็อก
                 </p>
               </div>
             </div>
@@ -337,19 +345,19 @@ export default function ProsperityPage() {
               สั่งทั้ง <span className="text-gold-gradient">2 ชิ้นพร้อมกัน</span>
             </h2>
             <p className="mt-4 text-white/75 leading-relaxed">
-              เหรียญอีโนเชี่ยน + BeRichy Wallet — ทักเข้า LINE OA แจ้งว่า ‘สั่ง Bundle’
+              เหรียญอีโนเชี่ยน + BeRichy Wallet — ทักทาง LINE แจ้งว่า ‘สั่ง Bundle’
               ทีมงานจะคุยส่วนลดและการจัดส่งให้คุณ
             </p>
             <p className="mt-3 text-sm text-gold-light">
-              ราคารวมปกติ ฿8,500 · ทักมาคุย<em>ส่วนลด bundle</em>ใน LINE OA
+              ราคารวมปกติ ฿8,500 · ทักมาคุย<em>ส่วนลด bundle</em>
             </p>
             <a
-              href={LINE_OA_URL}
+              href={LINE_ADD_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-8 py-3.5 text-sm font-semibold text-midnight-deep shadow-glow transition hover:scale-[1.02]"
             >
-              <LineIcon /> ทักคุย Bundle ใน LINE OA
+              <LineIcon /> สนใจติดต่อไลน์ไอดี {LINE_ID}
             </a>
           </div>
         </Container>
@@ -433,6 +441,40 @@ export default function ProsperityPage() {
             ไม่ใช่คำสัญญาทางการเงินหรือโชคชะตา · MAMULAB ไม่รับประกันผลลัพธ์
             แต่รับประกันคุณภาพและความถูกต้องของของจริง
           </p>
+        </Container>
+      </section>
+
+      {/* Contact strip — large LINE ID before footer so it's the last thing users see */}
+      <section className="relative bg-midnight-deep py-16 md:py-20">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,_rgba(6,199,85,0.12),_transparent_60%)] pointer-events-none" />
+        <Container className="relative">
+          <div className="mx-auto max-w-2xl rounded-[2rem] border border-emerald-400/40 bg-gradient-to-br from-emerald-500/10 via-midnight-soft to-midnight-deep p-8 text-center shadow-glow md:p-10">
+            <p className="text-xs uppercase tracking-[0.3em] text-emerald-300">
+              Order · ติดต่อสั่งซื้อ
+            </p>
+            <h2 className="mt-3 font-display text-2xl text-white md:text-3xl leading-snug">
+              สนใจติดต่อ <span className="text-emerald-300">ไลน์ไอดี</span>
+            </h2>
+            <p className="mt-5 inline-block rounded-2xl border border-emerald-400/50 bg-emerald-500/15 px-6 py-3 font-display text-3xl text-white md:text-4xl tracking-wide">
+              {LINE_ID}
+            </p>
+            <p className="mt-5 text-sm text-white/65 leading-relaxed">
+              ทักทางไลน์ — ทีมงานจะส่งภาพชัด รายละเอียดสินค้า สีให้เลือก
+              และวิธีโอนเงินให้ภายในวันเดียว
+            </p>
+            <a
+              href={LINE_ADD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-[#06C755] px-8 py-3.5 text-sm font-semibold text-white shadow-glow transition hover:scale-[1.02] hover:bg-[#04a648]"
+            >
+              <LineIcon /> เพิ่มเพื่อนไลน์ · ทักได้ทันที
+            </a>
+            <p className="mt-4 text-[11px] text-white/45">
+              หรือเปิดแอป LINE → ค้นหา ID:{" "}
+              <span className="text-emerald-300 font-medium">{LINE_ID}</span>
+            </p>
+          </div>
         </Container>
       </section>
 
