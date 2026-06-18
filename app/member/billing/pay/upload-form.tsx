@@ -3,6 +3,11 @@
 import { useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
+/**
+ * Generic slip-upload form. Defaults to the Library product so the existing
+ * /member/billing/pay route keeps working unchanged. Other product flows
+ * (Course, Inner Circle) pass their own `productCode` + `successPath` props.
+ */
 type Status =
   | { kind: "idle" }
   | { kind: "uploading" }
@@ -12,7 +17,13 @@ type Status =
 const MAX_BYTES = 5 * 1024 * 1024;
 const ALLOWED = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
-export default function UploadSlipForm() {
+export default function UploadSlipForm({
+  productCode = "library",
+  successPath = "/member/billing/pay/success",
+}: {
+  productCode?: string;
+  successPath?: string;
+} = {}) {
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -60,6 +71,7 @@ export default function UploadSlipForm() {
     try {
       const form = new FormData();
       form.append("file", f);
+      form.append("product_code", productCode);
 
       setStatus({ kind: "verifying" });
 
@@ -80,8 +92,8 @@ export default function UploadSlipForm() {
         return;
       }
 
-      // Success — redirect to success page
-      router.push("/member/billing/pay/success");
+      // Success — redirect to product-specific success page
+      router.push(successPath);
       router.refresh();
     } catch {
       setStatus({

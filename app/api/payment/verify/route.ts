@@ -1,23 +1,26 @@
 /**
  * POST /api/payment/verify
  *
- * Receives a slip image, extracts the embedded QR code, and grants a 30-day
- * membership if the slip has never been used before.
- *
- * No external service is required — we use server-side QR decoding so the
- * customer can pay → upload → use immediately.
+ * Receives a slip image, extracts the embedded QR code, and grants the
+ * product entitlement (Library, Course, or Inner Circle) keyed by
+ * `product_code` from the form payload.
  *
  * Flow:
  *  1. Auth check
- *  2. Validate file (type, size)
- *  3. Upload to Supabase Storage (audit trail)
- *  4. Decode QR + check uniqueness against `payments.slip_ref`
- *  5. On success: insert payment(verified) + membership(active, +30 days)
- *  6. On failure: insert payment(rejected) with reason
+ *  2. Resolve product_code → product (default 'library' for backwards compat)
+ *  3. Validate file (type, size)
+ *  4. Upload to Supabase Storage (audit trail, scoped by product)
+ *  5. Decode QR + check uniqueness against `payments.slip_ref`
+ *  6. On success: insert payment(verified) + grant entitlement
+ *  7. On failure: insert payment(rejected) with reason
  */
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { PAYMENT } from "@/lib/payment";
+import { getProduct, isProductCode } from "@/lib/products";
+import {
+  durationWindow,
+  grantEntitlement,
+} from "@/lib/membership";
 import { extractSlipFingerprint, SlipError } from "@/lib/slipQR";
 
 export const runtime = "nodejs";
@@ -45,15 +48,32 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 2. Read file from form-data
+  // 2. Read form
   let file: File | null = null;
+  let productCodeRaw = "library";
   try {
     const form = await req.formData();
     const f = form.get("file");
     if (f instanceof File) file = f;
+    const pc = form.get("product_code");
+    if (typeof pc === "string" && pc.trim()) productCodeRaw = pc.trim();
   } catch {
     return NextResponse.json(
       { ok: false, error: "อ่านไฟล์ไม่ได้" },
+      { status: 400 }
+    );
+  }
+
+  if (!isProductCode(productCodeRaw)) {
+    return NextResponse.json(
+      { ok: false, error: "ไม่รู้จักรายการสินค้านี้" },
+      { status: 400 }
+    );
+  }
+  const product = getProduct(productCodeRaw);
+  if (!product || !product.active) {
+    return NextResponse.json(
+      { ok: false, error: "สินค้านี้ปิดการขายแล้ว" },
       { status: 400 }
     );
   }
@@ -80,9 +100,10 @@ export async function POST(req: NextRequest) {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
   const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
-  const slipPath = `${user.id}/${Date.now()}.${ext}`;
+  // Path scopes by product so admin can browse slips per product.
+  const slipPath = `${user.id}/${product.code}/${Date.now()}.${ext}`;
 
-  // 3. Upload to Storage (we keep a copy regardless of outcome)
+  // 3. Upload to Storage
   const { error: uploadErr } = await supabase.storage
     .from("slips")
     .upload(slipPath, file, {
@@ -104,7 +125,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     const message =
       err instanceof SlipError ? err.message : "ตรวจสลิปไม่ผ่าน";
-    await recordRejected(supabase, user.id, slipPath, message);
+    await recordRejected(supabase, user.id, product.code, slipPath, message);
     return NextResponse.json(
       { ok: false, error: message },
       { status: 400 }
@@ -112,27 +133,32 @@ export async function POST(req: NextRequest) {
   }
 
   // 5. Insert payment with slip_ref = hash. The unique index on slip_ref
-  //    will reject duplicates atomically.
-  const now = new Date();
-  const expiresAt = new Date(
-    now.getTime() + PAYMENT.durationDays * 86400000
-  );
+  //    will reject duplicates atomically across all products.
+  const window = durationWindow(product.code);
+  if (!window) {
+    return NextResponse.json(
+      { ok: false, error: "ไม่พบ config ของสินค้านี้" },
+      { status: 500 }
+    );
+  }
 
   const { error: payErr } = await supabase.from("payments").insert({
     user_id: user.id,
-    amount: PAYMENT.price,
+    product_code: product.code,
+    amount: product.price,
     slip_url: slipPath,
     slip_ref: fingerprint.hash,
-    trans_date: now.toISOString(),
+    trans_date: window.startedAt.toISOString(),
     status: "verified",
-    verified_at: now.toISOString(),
+    verified_at: window.startedAt.toISOString(),
   });
   if (payErr) {
     if (payErr.code === "23505") {
-      // Unique violation = slip already used
+      // Unique violation = slip already used (across any product)
       await recordRejected(
         supabase,
         user.id,
+        product.code,
         slipPath,
         "สลิปนี้ถูกใช้ไปแล้ว"
       );
@@ -148,37 +174,40 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 6. Grant membership
-  const { error: memErr } = await supabase.from("memberships").insert({
-    user_id: user.id,
-    plan: "monthly",
-    status: "active",
-    started_at: now.toISOString(),
-    expires_at: expiresAt.toISOString(),
+  // 6. Grant entitlement (extends existing if user already had one active)
+  const grantRes = await grantEntitlement(supabase, {
+    userId: user.id,
+    productCode: product.code,
+    startedAt: window.startedAt,
+    expiresAt: window.expiresAt,
   });
-  if (memErr) {
-    console.error("membership insert failed", memErr);
+  if (grantRes.error) {
+    console.error("entitlement insert failed", grantRes.error);
     return NextResponse.json(
-      { ok: false, error: "เปิดสมาชิกไม่สำเร็จ ติดต่อแอดมิน" },
+      { ok: false, error: "เปิดสิทธิ์ใช้งานไม่สำเร็จ ติดต่อแอดมิน" },
       { status: 500 }
     );
   }
 
   return NextResponse.json({
     ok: true,
-    expiresAt: expiresAt.toISOString(),
+    productCode: product.code,
+    expiresAt: window.expiresAt.toISOString(),
   });
 }
 
 async function recordRejected(
   supabase: Awaited<ReturnType<typeof createClient>>,
   userId: string,
+  productCode: string,
   slipPath: string,
   reason: string
 ) {
+  const product = getProduct(productCode);
   await supabase.from("payments").insert({
     user_id: userId,
-    amount: PAYMENT.price,
+    product_code: productCode,
+    amount: product?.price ?? 0,
     slip_url: slipPath,
     status: "rejected",
     rejected_reason: reason,
